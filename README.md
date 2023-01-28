@@ -1,4 +1,4 @@
-# cs375
+# cs375 - Michael Seutin 
 Repo to host my computer graphics homeworks for Spring 2023.
 
 ## WebGL Website
