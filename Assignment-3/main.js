@@ -20,17 +20,17 @@ function init() {
   cube = new Cube(gl);
 
   // set up projection matrix
-//   const aspect = canvas.width / canvas.height;
-//   const fov = (60 * Math.PI) / 180; // convert to radians
-//   const zNear = 0.1;
-//   const zFar = 100.0;
-//   const P = perspective(fov, aspect, zNear, zFar);
+  const aspect = canvas.width / canvas.height;
+  const fov = 60; // convert to radians
+  const zNear = 2;
+  const zFar = 8;
+  P = perspective(fov, aspect, zNear, zFar);
 
   // set up model-view matrix
-//   const eye = vec3(0.0, 0.0, 10.0);
-//   const at = vec3(0.0, 0.0, 0.0);
-//   const up = vec3(0.0, 1.0, 0.0);
-//   const MV = lookAt(eye, at, up);
+  const eye = vec3(0.0, 0.0, 3.0);
+  const at = vec3(0.0, 0.0, 0.0);
+  const up = vec3(0.0, 1.0, 0.0);
+  MV = lookAt(eye, at, up);
 
   // set uniforms
 //   const PLoc = gl.getUniformLocation(vertexShader, "P");
@@ -45,10 +45,35 @@ var time = 0;
 function render() {
   // DEPTH BUFFERING
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  time += 1; // so it's not always 1
 
-  cube.MV = rotateX(time);
+  // create a matrix stack
+    // var ms = new MatrixStack();
+    // ms.load();
+
+  // update time
+  time += 1;
+
+  // push orignial MV matrix onto stack
+//   ms.push(MV);
+
+  // apply rotations using the matrix stack
+//   ms.rotate(rotateX(time));
+//   ms.rotate(rotateY(time));
+
+//   MV = mult(MV, ms.current());
+
+  // set the cube P and MV matrices
+  cube.P = P;
+//   cube.MV = MV;
+  cube.MV = mult(MV, mult(rotateX(time), rotateY(time)));
+
+  // render the cube
   cube.render();
+
+  // pop the original MV matrix from the stack
+//   ms.pop();
+
+  // request the next frame
   requestAnimationFrame(render);
 }
 

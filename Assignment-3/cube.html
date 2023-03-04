@@ -4,6 +4,7 @@
 <script type="text/javascript" src="Cube.js"></script>
 <script type="text/javascript" src="helpers.js"></script>
 <script type="text/javascript" src="MV.js"></script>
+<script type="text/javascript" src="MatrixStack.js"></script>
 
 <script id="Cube-vertex-shader" type="x-shader/x-vertex">
     in vec4 aPosition;
@@ -26,7 +27,7 @@
 
 
 
-        gl_Position = MV * aPosition;
+        gl_Position = P * MV * aPosition;
         vColor = aColor + 0.5;
     }
 </script>

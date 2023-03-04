@@ -115,6 +115,7 @@ function Cube(gl, vertexShaderId, fragmentShaderId) {
     );
     indices = new Indices(gl, indices);
     let MV = new Uniform(gl, shaderProgram, "MV");
+    let P = new Uniform(gl, shaderProgram, "P");
 
   this.render = function () {
     // Enable our shader program
@@ -131,6 +132,7 @@ function Cube(gl, vertexShaderId, fragmentShaderId) {
       indices.enable();
       
       MV.update(this.MV);
+      P.update(this.P);
 
     gl.drawElements(gl.TRIANGLES, indices.count, indices.type, 0);
     // Finally, reset our rendering state so that other objects we
